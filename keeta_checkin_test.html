@@ -10,7 +10,6 @@
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--y:#FFE41F;--g:#11C296;--gd:#0a9a7a;--k:#0B0B0B;--mg:#F0305C}
 body{font-family:'KF',-apple-system,sans-serif;background:var(--y);min-height:100vh;overflow-x:hidden}
-
 .hdr{background:var(--y);padding:20px 16px 10px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .hdr-left{display:flex;flex-direction:column;align-items:flex-start;gap:4px;flex:1;margin-top:4px}
 .logo{height:44px;width:auto;display:block}
@@ -36,51 +35,46 @@ body{font-family:'KF',-apple-system,sans-serif;background:var(--y);min-height:10
 .sw svg{width:88%;height:88%}
 .ci{background:var(--y);padding:20px 20px 36px}
 .sm{text-align:center;font-size:13px;font-weight:700;min-height:20px;margin-bottom:12px;color:transparent;line-height:1.5}
-.sm.ok{color:var(--gd)}
-.sm.err{color:var(--mg)}
+.sm.ok{color:var(--gd)} .sm.err{color:var(--mg)}
 .btn{width:100%;padding:19px;background:var(--k);color:var(--y);border:none;border-radius:14px;font-family:'KF',sans-serif;font-size:18px;font-weight:900;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .1s}
 .btn:active{transform:scale(.97)}
 .btn:disabled{background:#c8c08a;color:#a09a60;cursor:not-allowed;transform:none}
 .done{width:100%;padding:19px;background:transparent;border:2.5px solid var(--g);border-radius:14px;color:var(--gd);font-family:'KF',sans-serif;font-size:16px;font-weight:900;text-align:center}
 .fn{text-align:center;font-size:10px;color:rgba(11,11,11,.35);margin-top:16px;line-height:1.9;font-weight:600}
-
-/* DEBUG PANEL */
-.dbg-toggle{
-  text-align:center;margin-top:24px;
-}
-.dbg-toggle button{
-  background:none;border:1px dashed rgba(11,11,11,.2);
-  border-radius:8px;padding:6px 16px;
-  font-size:10px;color:rgba(11,11,11,.3);
-  font-family:'KF',sans-serif;cursor:pointer;
-}
-.dbg{
-  display:none;
-  margin:12px 0 0;
-  background:rgba(11,11,11,.06);
-  border-radius:12px;
-  padding:14px;
-  border:1px dashed rgba(11,11,11,.15);
-}
+/* phone modal */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:100;padding:24px}
+.modal{background:var(--y);border-radius:20px;padding:28px 24px;width:100%;max-width:340px}
+.modal-title{font-family:'KF',sans-serif;font-weight:900;font-size:20px;color:var(--k);margin-bottom:6px}
+.modal-sub{font-size:12px;color:rgba(11,11,11,.5);margin-bottom:20px;line-height:1.6}
+.modal input{width:100%;padding:14px 16px;border-radius:12px;border:2px solid rgba(11,11,11,.15);font-family:'KF',sans-serif;font-size:16px;font-weight:700;background:#fff;color:var(--k);margin-bottom:12px}
+.modal input:focus{outline:none;border-color:var(--g)}
+.modal-btn{width:100%;padding:16px;background:var(--k);color:var(--y);border:none;border-radius:12px;font-family:'KF',sans-serif;font-size:16px;font-weight:900;cursor:pointer}
+.modal-err{font-size:12px;color:var(--mg);font-weight:700;margin-bottom:10px;min-height:16px}
+/* dbg */
+.dbg-toggle{text-align:center;margin-top:24px}
+.dbg-toggle button{background:none;border:1px dashed rgba(11,11,11,.2);border-radius:8px;padding:6px 16px;font-size:10px;color:rgba(11,11,11,.3);font-family:'KF',sans-serif;cursor:pointer}
+.dbg{display:none;margin:12px 0 0;background:rgba(11,11,11,.06);border-radius:12px;padding:14px;border:1px dashed rgba(11,11,11,.15)}
 .dbg.open{display:block}
 .dbg-title{font-size:10px;font-weight:700;color:rgba(11,11,11,.4);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
 .dbg-row{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
-.dbg-row select{
-  flex:1;min-width:0;padding:8px;border-radius:8px;
-  border:1px solid rgba(11,11,11,.2);background:#fff;
-  font-family:'KF',sans-serif;font-size:12px;font-weight:700;
-}
-.dbg-btn{
-  padding:8px 14px;border-radius:8px;border:none;
-  font-family:'KF',sans-serif;font-size:12px;font-weight:900;
-  cursor:pointer;white-space:nowrap;
-}
+.dbg-row select{flex:1;min-width:0;padding:8px;border-radius:8px;border:1px solid rgba(11,11,11,.2);background:#fff;font-family:'KF',sans-serif;font-size:12px;font-weight:700}
+.dbg-btn{padding:8px 14px;border-radius:8px;border:none;font-family:'KF',sans-serif;font-size:12px;font-weight:900;cursor:pointer;white-space:nowrap}
 .dbg-btn.add{background:var(--k);color:var(--y)}
 .dbg-btn.clear{background:var(--mg);color:#fff}
 .dbg-btn.stamp{background:var(--g);color:var(--k)}
 </style>
 </head>
 <body>
+
+<div id="phone-modal" class="modal-bg">
+  <div class="modal">
+    <div class="modal-title">Welcome! 👋</div>
+    <div class="modal-sub">Enter your phone number to start collecting stamps. This links your stamps to you.</div>
+    <input type="tel" id="phone-input" placeholder="+966 5XX XXX XXXX" maxlength="20">
+    <div class="modal-err" id="modal-err"></div>
+    <button class="modal-btn" onclick="savePhone()">Start Collecting</button>
+  </div>
+</div>
 
 <div class="hdr">
   <div class="hdr-left">
@@ -92,9 +86,7 @@ body{font-family:'KF',-apple-system,sans-serif;background:var(--y);min-height:10
     <div class="vb-label">Total Visits</div>
   </div>
 </div>
-
 <div class="divider"></div>
-
 <div class="cal">
   <div class="cal-eye">World Cup 2026</div>
   <div class="cal-ttl">Stamp Your Visits!</div>
@@ -104,18 +96,13 @@ body{font-family:'KF',-apple-system,sans-serif;background:var(--y);min-height:10
   </div>
   <div class="cgrid" id="cg"></div>
 </div>
-
 <div class="ci">
   <div class="sm" id="sm"> </div>
   <div id="aa"></div>
-  <div class="fn">Must be within 200m of the Keeta booth<br>One check-in per day &middot; Saved on this device</div>
-
-  <!-- DEBUG TOGGLE -->
-  <div class="dbg-toggle">
-    <button onclick="toggleDbg()">⚙ Test Mode</button>
-  </div>
+  <div class="fn">Must be within 200m of the Keeta booth<br>One stamp per day &middot; Linked to your phone number</div>
+  <div class="dbg-toggle"><button onclick="toggleDbg()">⚙ Test Mode</button></div>
   <div class="dbg" id="dbg">
-    <div class="dbg-title">Test Mode — not visible to users</div>
+    <div class="dbg-title">Test Mode</div>
     <div class="dbg-row">
       <select id="dbg-date"></select>
       <button class="dbg-btn add" onclick="dbgAdd()">Add Stamp</button>
@@ -129,6 +116,7 @@ body{font-family:'KF',-apple-system,sans-serif;background:var(--y);min-height:10
 
 <script>
 var VLT=24.8218901,VLN=46.6517868,RM=200;
+var SCRIPT_URL='https://script.google.com/macros/s/AKfycbxJaIub8rXStt4M24p4xUA2FNfrZYTxxQLqnQZXXscTxsoJcAqinQvLps6hfklbzWAvJA/exec';
 var DAYS=[];
 var s=new Date(2026,5,10),e=new Date(2026,6,19);
 for(var dd=new Date(s);dd<=e;dd.setDate(dd.getDate()+1))
@@ -138,6 +126,15 @@ var TODAY=null;
 function tk(y,m,d){return y+'-'+String(m).padStart(2,'0')+'-'+String(d).padStart(2,'0');}
 function gv(){try{return JSON.parse(localStorage.getItem('kv3')||'[]');}catch(e){return[];}}
 function sv(k){var v=gv();if(!v.includes(k)){v.push(k);localStorage.setItem('kv3',JSON.stringify(v));}}
+function getPhone(){return localStorage.getItem('kphone')||'';}
+
+function savePhone(){
+  var p=document.getElementById('phone-input').value.trim();
+  if(!p||p.length<6){document.getElementById('modal-err').textContent='Please enter a valid phone number';return;}
+  localStorage.setItem('kphone',p);
+  document.getElementById('phone-modal').style.display='none';
+  rCal();rAct();
+}
 
 async function fetchT(){
   try{
@@ -147,8 +144,8 @@ async function fetchT(){
     return {y:dt.getFullYear(),m:dt.getMonth()+1,d:dt.getDate()};
   }catch(e){
     var n=new Date();
-    var s=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Riyadh',year:'numeric',month:'2-digit',day:'2-digit'}).format(n);
-    var p=s.split('-');
+    var s2=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Riyadh',year:'numeric',month:'2-digit',day:'2-digit'}).format(n);
+    var p=s2.split('-');
     return {y:parseInt(p[0]),m:parseInt(p[1]),d:parseInt(p[2])};
   }
 }
@@ -204,16 +201,36 @@ function hav(a,b,c,d){
   return R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
 }
 
+async function syncStamp(phone, date){
+  try{
+    var now=new Date().toISOString();
+    await fetch(SCRIPT_URL, {
+      method:'POST',
+      body:JSON.stringify({action:'stamp',phone:phone,date:date,timestamp:now}),
+      headers:{'Content-Type':'text/plain'}
+    });
+  }catch(e){console.log('sync failed',e);}
+}
+
 function doCI(){
   var btn=document.getElementById('cb');
   if(!btn||btn.disabled)return;
+  var phone=getPhone();
+  if(!phone){document.getElementById('phone-modal').style.display='flex';return;}
   btn.disabled=true;btn.textContent='Getting location...';setSt('');
   if(!navigator.geolocation){setSt('Location not supported','err');btn.disabled=false;btn.textContent='Stamp Now';return;}
   navigator.geolocation.getCurrentPosition(
     function(p){
       var dist=hav(p.coords.latitude,p.coords.longitude,VLT,VLN);
-      if(dist<=RM){sv(tk(TODAY.y,TODAY.m,TODAY.d));setSt('');rCal();rAct();}
-      else{setSt("You're "+Math.round(dist)+"m away — must be within "+RM+"m",'err');btn.disabled=false;btn.textContent='Stamp Now';}
+      if(dist<=RM){
+        var key=tk(TODAY.y,TODAY.m,TODAY.d);
+        sv(key);
+        syncStamp(phone, key);
+        setSt('');rCal();rAct();
+      }else{
+        setSt("You're "+Math.round(dist)+"m away — must be within "+RM+"m",'err');
+        btn.disabled=false;btn.textContent='Stamp Now';
+      }
     },
     function(err){
       var msgs={1:'Please enable location access and try again',2:'Weak signal — please try again'};
@@ -224,15 +241,9 @@ function doCI(){
   );
 }
 
-/* ── DEBUG ── */
-function toggleDbg(){
-  var el=document.getElementById('dbg');
-  el.classList.toggle('open');
-}
-
+function toggleDbg(){document.getElementById('dbg').classList.toggle('open');}
 function buildDateSelect(){
-  var sel=document.getElementById('dbg-date');
-  sel.innerHTML='';
+  var sel=document.getElementById('dbg-date');sel.innerHTML='';
   var MN=['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   DAYS.forEach(function(day){
     var opt=document.createElement('option');
@@ -241,30 +252,21 @@ function buildDateSelect(){
     sel.appendChild(opt);
   });
 }
-
 function dbgAdd(){
   var key=document.getElementById('dbg-date').value;
-  sv(key);rCal();rAct();
-  setSt('Stamp added: '+key,'ok');
+  sv(key);rCal();rAct();setSt('Stamp added: '+key,'ok');
 }
-
 function dbgStampToday(){
   if(!TODAY){setSt('Date not loaded yet','err');return;}
   var key=tk(TODAY.y,TODAY.m,TODAY.d);
-  sv(key);rCal();rAct();
-  setSt('Today stamped!','ok');
+  sv(key);rCal();rAct();setSt('Today stamped!','ok');
 }
-
-function dbgClear(){
-  localStorage.removeItem('kv3');
-  rCal();rAct();
-  setSt('All stamps cleared','ok');
-}
+function dbgClear(){localStorage.removeItem('kv3');rCal();rAct();setSt('All stamps cleared','ok');}
 
 async function init(){
+  if(getPhone())document.getElementById('phone-modal').style.display='none';
   TODAY=await fetchT();
-  buildDateSelect();
-  rCal();rAct();
+  buildDateSelect();rCal();rAct();
 }
 init();
 </script>
